@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "867243820987",
+    "firebase_url": "https://to-do-app-3493a-default-rtdb.firebaseio.com",
+    "project_id": "to-do-app-3493a",
+    "storage_bucket": "to-do-app-3493a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867243820987:android:c2997968e67efe8966a69e",
+        "android_client_info": {
+          "package_name": "com.example.to_dotasktracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD42ng4nQ1D95eD5ujgOIco728xfVuGAW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">To-Do (task tracker)</string>
+    <!-- Replace with your actual Web Client ID from Firebase Console -->
+    <string name="default_web_client_id">867243820987-qfvdgpuvmjljuio6e7mfu856r7jt17id.apps.googleusercontent.com</string>
+</resources>
