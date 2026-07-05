@@ -26,6 +26,7 @@ import com.example.to_dotasktracker.screen.dashboard.ProfileScreen
 import com.example.to_dotasktracker.screen.dashboard.TaskDetailScreen
 import com.example.to_dotasktracker.screen.dashboard.ProductivityPreferencesScreen
 import com.example.to_dotasktracker.screen.dashboard.SessionManagementScreen
+import com.example.to_dotasktracker.screen.dashboard.SupportHelpScreen
 import com.example.to_dotasktracker.screen.TasksScreen
 import com.example.to_dotasktracker.screen.auth.LoginScreen
 import com.example.to_dotasktracker.screen.auth.RegisterScreen
@@ -223,9 +224,10 @@ class MainActivity : ComponentActivity() {
                                         onDashboardClick = { currentScreen = "dashboard" },
                                         onTasksClick = { currentScreen = "tasks" },
                                         onCalendarClick = { currentScreen = "calendar" },
-                                        onLogoutClick = { currentScreen = "login" },
-                                        onAccountSettingsClick = { currentScreen = "accountSettings" },
-                                        selectedAppearance = selectedAppearance,
+                                    onLogoutClick = { currentScreen = "login" },
+                                    onAccountSettingsClick = { currentScreen = "accountSettings" },
+                                    onSupportHelpClick = { currentScreen = "supportHelp" },
+                                    selectedAppearance = selectedAppearance,
                                         onAppearanceChange = { selectedAppearance = it }
                                     )
                                     "accountSettings" -> AccountSettingsScreen(
@@ -252,13 +254,16 @@ class MainActivity : ComponentActivity() {
                                         onProfileClick = { currentScreen = "profile" }
                                     )
                                     "changePassword" -> ChangePasswordScreen(
-                                        onBackClick = { currentScreen = "accountSettings" },
-                                        onDashboardClick = { currentScreen = "dashboard" },
-                                        onTasksClick = { currentScreen = "tasks" },
-                                        onCalendarClick = { currentScreen = "calendar" },
-                                        onProfileClick = { currentScreen = "profile" }
-                                    )
-                                    "createTask" -> CreateTaskScreen(
+                                    onBackClick = { currentScreen = "accountSettings" },
+                                    onDashboardClick = { currentScreen = "dashboard" },
+                                    onTasksClick = { currentScreen = "tasks" },
+                                    onCalendarClick = { currentScreen = "calendar" },
+                                    onProfileClick = { currentScreen = "profile" }
+                                )
+                                "supportHelp" -> SupportHelpScreen(
+                                    onBackClick = { currentScreen = "profile" }
+                                )
+                                "createTask" -> CreateTaskScreen(
                                         taskId = if (selectedTaskId.isEmpty()) null else selectedTaskId,
                                         onCancelClick = { currentScreen = "tasks" },
                                         onCreateClick = { currentScreen = "tasks" }

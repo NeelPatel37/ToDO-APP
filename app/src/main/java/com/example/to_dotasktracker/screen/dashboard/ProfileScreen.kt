@@ -45,6 +45,7 @@ fun ProfileScreen(
     onCalendarClick: () -> Unit = {},
     onLogoutClick: () -> Unit = {},
     onAccountSettingsClick: () -> Unit = {},
+    onSupportHelpClick: () -> Unit = {},
     selectedAppearance: String = "Default",
     onAppearanceChange: (String) -> Unit = {}
 ) {
@@ -377,7 +378,11 @@ fun ProfileScreen(
                         )
                         
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = MaterialTheme.colorScheme.outline)
-                        ProfileMenuItem(icon = Icons.Outlined.HelpOutline, title = "Support & Help")
+                        ProfileMenuItem(
+                            icon = Icons.Outlined.HelpOutline, 
+                            title = "Support & Help",
+                            onClick = onSupportHelpClick
+                        )
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = MaterialTheme.colorScheme.outline)
                         
                         // Delete Account Option

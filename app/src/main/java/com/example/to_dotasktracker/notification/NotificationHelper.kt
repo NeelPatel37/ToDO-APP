@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.example.to_dotasktracker.common.PreferenceManager
 import com.example.to_dotasktracker.model.TaskRequest
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,6 +51,13 @@ class NotificationHelper(private val context: Context) {
         
         if (task.status == "Completed") {
             Log.d("NotificationHelper", "Task ${task.title} is completed, canceling existing alarms and skipping scheduling")
+            cancelTaskNotifications(task.id)
+            return
+        }
+
+        val preferenceManager = PreferenceManager(context)
+        if (!preferenceManager.isNotificationsEnabled()) {
+            Log.d("NotificationHelper", "Notifications are disabled in settings. Canceling existing and skipping scheduling.")
             cancelTaskNotifications(task.id)
             return
         }

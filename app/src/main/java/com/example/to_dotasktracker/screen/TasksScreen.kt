@@ -191,13 +191,12 @@ fun TasksScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 tabs.forEachIndexed { index, title ->
-                    AnimatedTabItem(index = index, modifier = Modifier.weight(1f)) {
-                        FilterTab(
-                            text = title,
-                            isSelected = selectedTab == index,
-                            onClick = { selectedTab = index }
-                        )
-                    }
+                    FilterTab(
+                        text = title,
+                        isSelected = selectedTab == index,
+                        onClick = { selectedTab = index },
+                        modifier = Modifier.weight(1f)
+                    )
                 }
             }
 
@@ -314,39 +313,6 @@ fun TasksScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun AnimatedTabItem(index: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    var visible by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        if (!visible) {
-            delay(index * 100L)
-            visible = true
-        }
-    }
-
-    val animatedAlpha by animateFloatAsState(
-        targetValue = if (visible) 1f else 0f,
-        animationSpec = tween(durationMillis = 500),
-        label = "alpha"
-    )
-    val animatedScale by animateFloatAsState(
-        targetValue = if (visible) 1f else 0.85f,
-        animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
-        label = "scale"
-    )
-
-    Box(
-        modifier = modifier
-            .graphicsLayer(
-                alpha = animatedAlpha,
-                scaleX = animatedScale,
-                scaleY = animatedScale
-            )
-    ) {
-        content()
     }
 }
 
