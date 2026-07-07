@@ -4,12 +4,10 @@ import android.util.Patterns
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Visibility
@@ -318,12 +316,10 @@ fun LoginScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.height(60.dp))
-
             // Logo and App Name (Matched with RegisterScreen)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
@@ -341,7 +337,7 @@ fun LoginScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Welcome back",
@@ -356,7 +352,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Form Card (Matched with RegisterScreen background)
             Card(
@@ -397,7 +393,7 @@ fun LoginScreen(
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // Password Label
                     FormLabel("PASSWORD")
@@ -437,7 +433,7 @@ fun LoginScreen(
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     // Sign In Button
                     Button(
@@ -472,7 +468,7 @@ fun LoginScreen(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Divider
                     Row(
@@ -485,7 +481,7 @@ fun LoginScreen(
                             color = borderColor
                         )
                         Text(
-                            text = "Or continue with",
+                            text = "Or",
                             modifier = Modifier.padding(horizontal = 16.dp),
                             fontSize = 12.sp,
                             color = grayText
@@ -497,7 +493,7 @@ fun LoginScreen(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Social Buttons
                     SocialButton(
@@ -520,7 +516,7 @@ fun LoginScreen(
 
             // Footer
             Row(
-                modifier = Modifier.padding(bottom = 32.dp),
+                modifier = Modifier.padding(bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(

@@ -3,12 +3,10 @@ package com.example.to_dotasktracker.screen.auth
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -224,12 +222,10 @@ fun RegisterScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.height(60.dp))
-
             // Logo and App Name
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
@@ -247,7 +243,7 @@ fun RegisterScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Create Account",
@@ -262,7 +258,7 @@ fun RegisterScreen(
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Form Card
             Card(
@@ -274,9 +270,9 @@ fun RegisterScreen(
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, borderColor)
             ) {
-                Column(modifier = Modifier.padding(24.dp)) {
+                Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 20.dp)) {
                     FormLabel("Full Name")
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                     OutlinedTextField(
                         value = fullName,
                         onValueChange = { input ->
@@ -300,10 +296,10 @@ fun RegisterScreen(
                         keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) })
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     FormLabel("Email")
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     OutlinedTextField(
                         value = email,
@@ -325,11 +321,11 @@ fun RegisterScreen(
                         keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) })
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     FormLabel("Password")
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     OutlinedTextField(
                         value = password,
@@ -361,7 +357,7 @@ fun RegisterScreen(
                         })
                     )
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Button(
                         onClick = { validateAndRegister() },
@@ -377,7 +373,7 @@ fun RegisterScreen(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                         HorizontalDivider(modifier = Modifier.weight(1f), thickness = 1.dp, color = borderColor)
@@ -385,7 +381,7 @@ fun RegisterScreen(
                         HorizontalDivider(modifier = Modifier.weight(1f), thickness = 1.dp, color = borderColor)
                     }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         SocialButton(
@@ -407,7 +403,7 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            Row(modifier = Modifier.padding(bottom = 32.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.padding(bottom = 24.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(text = "Already have an account? ", color = grayText, fontSize = 14.sp)
                 val annotatedString = buildAnnotatedString {
                     withStyle(style = SpanStyle(color = primaryBlue, fontWeight = FontWeight.Bold)) {

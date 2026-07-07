@@ -76,7 +76,6 @@ fun CreateTaskScreen(
     var taskTitle by rememberSaveable { mutableStateOf("") }
     var taskDescription by rememberSaveable { mutableStateOf("") }
     var selectedPriorityIndex by rememberSaveable { mutableIntStateOf(1) }
-    var isRecurring by rememberSaveable { mutableStateOf(false) }
     var pushReminder by rememberSaveable { mutableStateOf(true) }
     var selectedCategory by rememberSaveable { mutableStateOf("Work") }
     var showCategoryMenu by remember { mutableStateOf(false) }
@@ -125,7 +124,6 @@ fun CreateTaskScreen(
                         startTaskTimeText = task.startTime
                         selectedDateText = task.dueDate
                         selectedTimeText = task.dueTime
-                        isRecurring = task.recurring
                         pushReminder = task.pushReminder
                         subTasks.clear()
                         task.subTasks.forEachIndexed { index, sub ->
@@ -402,7 +400,7 @@ fun CreateTaskScreen(
                                     startTime = startTaskTimeText,
                                     dueDate = selectedDateText,
                                     dueTime = selectedTimeText,
-                                    recurring = isRecurring,
+                                    recurring = false,
                                     pushReminder = pushReminder,
                                     subTasks = subTasks.map { SubTaskRequest(it.title, it.isChecked) }
                                 )
@@ -673,33 +671,6 @@ fun CreateTaskScreen(
                                             }
                                         )
                                     }
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(24.dp))
-
-                            // Recurring
-                            Text(
-                                text = "RECURRING",
-                                style = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Bold, color = onSurfaceVariantColor, letterSpacing = 1.sp)
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            OutlinedCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(8.dp),
-                                border = BorderStroke(1.dp, borderColor),
-                                colors = CardDefaults.outlinedCardColors(containerColor = Color.Transparent)
-                            ) {
-                                Row(
-                                    modifier = Modifier.padding(start = 12.dp, end = 8.dp, top = 4.dp, bottom = 4.dp).fillMaxWidth(),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text("Daily", fontSize = 14.sp, color = onSurfaceColor, modifier = Modifier.weight(1f))
-                                    Switch(
-                                        checked = isRecurring,
-                                        onCheckedChange = { isRecurring = it },
-                                        colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = primaryColor)
-                                    )
                                 }
                             }
                         }
