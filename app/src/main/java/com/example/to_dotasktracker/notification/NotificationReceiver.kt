@@ -62,7 +62,11 @@ class NotificationReceiver : BroadcastReceiver() {
                         NotificationHelper.TYPE_MISSED -> {
                             if (!isCompleted) {
                                 // Update status to Pending
-                                database.child("users").child(userId).child("tasks").child(taskId).child("status").setValue("Pending")
+                                val pendingUpdates = mapOf(
+                                    "status" to "Pending",
+                                    "pendingAt" to System.currentTimeMillis()
+                                )
+                                database.child("users").child(userId).child("tasks").child(taskId).updateChildren(pendingUpdates)
                                 "Task Missed" to "You missed your current task: '$taskTitle'. Status updated to Pending."
                             } else null
                         }

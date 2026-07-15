@@ -50,7 +50,8 @@ fun DashboardScreen(
     onTasksClick: () -> Unit = {},
     onCalendarClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
-    onTaskClick: (String) -> Unit = {}
+    onTaskClick: (String) -> Unit = {},
+    onCreateTaskClick: () -> Unit = {}
 ) {
     val primaryColor = MaterialTheme.colorScheme.primary
     val lightGrayBg = MaterialTheme.colorScheme.background
@@ -99,6 +100,17 @@ fun DashboardScreen(
                                 if (task.completedAt != null) {
                                     val twentyFourHoursMillis = 24 * 60 * 60 * 1000L
                                     if (System.currentTimeMillis() - task.completedAt > twentyFourHoursMillis) {
+                                        tasksRef.child(taskSnapshot.key ?: "").removeValue()
+                                        continue
+                                    }
+                                }
+                            }
+                            
+                            // Check and cleanup old pending tasks (24 hours)
+                            if (task.status == "Pending") {
+                                if (task.pendingAt != null) {
+                                    val twentyFourHoursMillis = 24 * 60 * 60 * 1000L
+                                    if (System.currentTimeMillis() - task.pendingAt > twentyFourHoursMillis) {
                                         tasksRef.child(taskSnapshot.key ?: "").removeValue()
                                         continue
                                     }
@@ -184,6 +196,7 @@ fun DashboardScreen(
                             )
                             database.child("users").child(userId).child("tasks").child(task.id).updateChildren(updates)
                             notificationHelper.cancelTaskNotifications(task.id)
+                            database.child("users").child(userId).child("tasks").child(task.id).child("pendingAt").removeValue()
                         }
                         taskToComplete = null
                     },
@@ -322,7 +335,7 @@ fun DashboardScreen(
 
             // Capture Card
             item {
-                CaptureCard(primaryColor = primaryColor)
+                CaptureCard(primaryColor = primaryColor, onQuickAddClick = onCreateTaskClick)
             }
 
             // Top Priorities Header
@@ -592,7 +605,7 @@ fun CircularProgress(progress: Float, primaryColor: Color, modifier: Modifier = 
 }
 
 @Composable
-fun CaptureCard(primaryColor: Color) {
+fun CaptureCard(primaryColor: Color, onQuickAddClick: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -626,7 +639,7 @@ fun CaptureCard(primaryColor: Color) {
             }
             
             Button(
-                onClick = { },
+                onClick = onQuickAddClick,
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(18.dp),
                 contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),

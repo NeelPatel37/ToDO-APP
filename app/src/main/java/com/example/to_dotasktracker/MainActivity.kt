@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         
         val primaryBlue = Color(0xFF0056D2)
+
         
         setContent {
             val context = LocalContext.current
@@ -196,6 +197,10 @@ class MainActivity : ComponentActivity() {
                                         onTaskClick = { taskId -> 
                                             selectedTaskId = taskId
                                             currentScreen = "taskDetail" 
+                                        },
+                                        onCreateTaskClick = {
+                                            selectedTaskId = ""
+                                            currentScreen = "createTask"
                                         }
                                     )
                                     "tasks" -> TasksScreen(

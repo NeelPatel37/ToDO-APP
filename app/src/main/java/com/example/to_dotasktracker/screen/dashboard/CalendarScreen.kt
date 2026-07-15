@@ -66,9 +66,26 @@ fun CalendarScreen(
             tasksRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val taskList = mutableListOf<TaskRequest>()
+                    val twentyFourHoursMillis = 24 * 60 * 60 * 1000L
+                    val currentTime = System.currentTimeMillis()
+                    
                     for (taskSnapshot in snapshot.children) {
                         val task = taskSnapshot.getValue(TaskRequest::class.java)
                         if (task != null) {
+                            // Cleanup logic for Completed tasks
+                            if (task.status == "Completed" && task.completedAt != null) {
+                                if (currentTime - task.completedAt > twentyFourHoursMillis) {
+                                    tasksRef.child(taskSnapshot.key ?: "").removeValue()
+                                    continue
+                                }
+                            }
+                            // Cleanup logic for Pending tasks
+                            if (task.status == "Pending" && task.pendingAt != null) {
+                                if (currentTime - task.pendingAt > twentyFourHoursMillis) {
+                                    tasksRef.child(taskSnapshot.key ?: "").removeValue()
+                                    continue
+                                }
+                            }
                             taskList.add(task)
                         }
                     }

@@ -16,6 +16,7 @@ data class TaskRequest(
     val subTasks: List<SubTaskRequest> = emptyList(),
     val status: String = "To Do",
     val completedAt: Long? = null,
+    val pendingAt: Long? = null,
     val createdAt: Long = System.currentTimeMillis()
 )
 
