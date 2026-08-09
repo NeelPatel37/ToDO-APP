@@ -215,9 +215,26 @@ fun ProfileScreen(
             confirmButton = {
                 Button(
                     onClick = {
-                        showDeleteAccountDialog = false
-                        // Actual deletion logic would go here
-                        onLogoutClick()
+                        if (userId != null) {
+                            val user = auth.currentUser
+                            user?.delete()?.addOnCompleteListener { deleteResult ->
+                                if (deleteResult.isSuccessful) {
+                                    // 1. Remove user data from Realtime Database
+                                    database.child("users").child(userId).removeValue()
+                                    // 2. Clear local data and navigate
+                                    preferenceManager.clear()
+                                    showDeleteAccountDialog = false
+                                    onLogoutClick()
+                                } else {
+                                    // Handle failure (e.g., re-authentication required)
+                                    val error = deleteResult.exception?.message ?: "Unknown error"
+                                    android.widget.Toast.makeText(context, "Delete failed: $error. Please log in again to verify your identity.", android.widget.Toast.LENGTH_LONG).show()
+                                    showDeleteAccountDialog = false
+                                }
+                            }
+                        } else {
+                            showDeleteAccountDialog = false
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
                     shape = RoundedCornerShape(10.dp)

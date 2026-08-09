@@ -1,6 +1,6 @@
 package com.example.to_dotasktracker.screen.dashboard
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,11 +13,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.Intent
+import android.net.Uri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,6 +30,7 @@ fun SupportHelpScreen(
     val primaryColor = MaterialTheme.colorScheme.primary
     val backgroundColor = MaterialTheme.colorScheme.background
     val surfaceColor = MaterialTheme.colorScheme.surface
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -103,7 +107,15 @@ fun SupportHelpScreen(
                         Surface(
                             color = Color.White,
                             shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                        data = Uri.parse("mailto:neelpatel0265@gmail.com")
+                                        putExtra(Intent.EXTRA_SUBJECT, "Support Request - Focus App")
+                                    }
+                                    context.startActivity(Intent.createChooser(intent, "Send Email"))
+                                }
                         ) {
                             Row(
                                 modifier = Modifier.padding(16.dp),
@@ -113,7 +125,7 @@ fun SupportHelpScreen(
                                 Icon(Icons.Default.Mail, contentDescription = null, tint = primaryColor, modifier = Modifier.size(20.dp))
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Text(
-                                    text = "support@focusapp.com",
+                                    text = "neelpatel0265@gmail.com",
                                     style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold, color = primaryColor)
                                 )
                             }

@@ -407,6 +407,23 @@ fun TaskCard(
     var showCompleteDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     val primaryColor = MaterialTheme.colorScheme.primary
+    val context = androidx.compose.ui.platform.LocalContext.current
+
+    fun shareTask() {
+        val shareText = """
+            Focus Task: $title
+            Category: $category
+            Due: $date
+            Details: $description
+        """.trimIndent()
+        
+        val intent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(android.content.Intent.EXTRA_SUBJECT, "Task: $title")
+            putExtra(android.content.Intent.EXTRA_TEXT, shareText)
+        }
+        context.startActivity(android.content.Intent.createChooser(intent, "Share Task via"))
+    }
 
     if (showCompleteDialog) {
         AlertDialog(
@@ -609,22 +626,42 @@ fun TaskCard(
                 
                 Spacer(modifier = Modifier.height(16.dp))
                 
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = if (isOverdue) Icons.Default.ErrorOutline else Icons.Default.CalendarToday,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp),
-                        tint = if (isOverdue) Color(0xFFEF4444) else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = date,
-                        style = TextStyle(
-                            fontSize = 13.sp,
-                            color = if (isOverdue) Color(0xFFEF4444) else MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontWeight = if (isOverdue) FontWeight.Bold else FontWeight.Medium
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = if (isOverdue) Icons.Default.ErrorOutline else Icons.Default.CalendarToday,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = if (isOverdue) Color(0xFFEF4444) else MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                    )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = date,
+                            style = TextStyle(
+                                fontSize = 13.sp,
+                                color = if (isOverdue) Color(0xFFEF4444) else MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontWeight = if (isOverdue) FontWeight.Bold else FontWeight.Medium
+                            )
+                        )
+                    }
+
+                    if (!isCompleted) {
+                        IconButton(
+                            onClick = { shareTask() },
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = "Share",
+                                tint = primaryColor,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                    }
                 }
             }
         }
