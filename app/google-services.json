@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:867243820987:android:c2997968e67efe8966a69e",
         "android_client_info": {
-          "package_name": "com.example.to_dotasktracker"
+          "package_name": "com.neelpatel.todo.tasktracker"
         }
       },
       "oauth_client": [],

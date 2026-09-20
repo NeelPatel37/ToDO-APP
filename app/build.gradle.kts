@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.to_dotasktracker"
+    namespace = "com.neelpatel.todo.tasktracker"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.to_dotasktracker"
+        applicationId = "com.neelpatel.todo.tasktracker"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
